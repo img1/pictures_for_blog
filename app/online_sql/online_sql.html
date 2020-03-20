@@ -1,0 +1,77 @@
+
+
+
+
+<!-- https://github.com/afshinm/Json-to-HTML-Table -->
+
+<body>
+<script src="https://cdn.jsdelivr.net/npm/alasql@0.5"></script>
+<script src="json-to-table.js"></script>
+
+
+
+<script>
+    function func_1() {
+        sql = document.getElementById("sql_input").value;
+        res = alasql(sql);
+        print_output = "<table>"
+        // for (i in res){
+        //   print_output += ('<font color="red"><b>result '+i+':</b></font>'
+        //   +ConvertJsonToTable(res[i], 'jsonTable', null, 'Download')
+        //    )
+        // }
+        for (i in res){
+          print_output += ('<tr><th><font color="red">result '+i+':</font></th><td>'
+          +ConvertJsonToTable(res[i], 'jsonTable', null, 'Download')+'</td></tr>'
+           )
+        }
+        print_output+='</table>'
+
+
+        document.getElementById("output").innerHTML = print_output;
+
+    }
+
+    function make_demo(){
+      var demo_sql = "\n\
+create table table_origin_data(\n\
+user string,\n\
+item string,\n\
+score double\n\
+);\n\
+\n\
+insert into table_origin_data values\n\
+('张三','M1',5),\n\
+('李四','M2',2),\n\
+('王二','M1',4),\n\
+('张三','M2',3),\n\
+('李四','M3',5),\n\
+('张三','M3',1);\n\
+\n\
+SELECT * FROM table_origin_data;\n"
+
+      document.getElementById("sql_input").innerHTML = demo_sql
+    }
+
+var htmlSTring = '<div style="font-color:red;">\
+  This is a string.\
+</div>'
+</script>
+
+Input your SQL:
+<!-- <input name="sql_input" value="select 1;" type="text" id="sql_input"> -->
+<br>
+<textarea name="sql_input" rows="17" cols="80" id="sql_input"></textarea>
+<br>
+<input name="Button" type="button" value="Calculate" onClick="func_1()">
+<input name="Button" type="button" value="make demo" onClick="make_demo()">
+<p id="output"></p>
+<br>
+说明：<br>
+1. 在线运行SQL<br>
+2. 纯JavaScript工具，无后端。<br>
+3. 运行和计算是在你的浏览器中实现的。<br>
+4. 不向外发送数据，你输入的数据不会泄露。<br>
+5. 右键保存下来可以离线用。(或许需要你保存一下)<br>
+6. 刷新页面后，数据清空。<br>
+</body>

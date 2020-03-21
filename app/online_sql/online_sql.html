@@ -21,9 +21,12 @@
         //   +ConvertJsonToTable(res[i], 'jsonTable', null, 'Download')
         //    )
         // }
+        // 如果执行单句sql，就不嵌套到一个array中，为了出表，手动嵌套一层：
+        if(typeof(res[0])=="object" && typeof(res[0][0])=="undefined"){res=[res];}
         for (i in res){
+          print_output_tmp = ConvertJsonToTable(res[i], 'jsonTable', null, 'Download')
           print_output += ('<tr><th><font color="red">result '+i+':</font></th><td>'
-          +ConvertJsonToTable(res[i], 'jsonTable', null, 'Download')+'</td></tr>'
+          + print_output_tmp + '</td></tr>'
            )
         }
         print_output+='</table>'
@@ -51,7 +54,7 @@ insert into table_origin_data values\n\
 \n\
 SELECT * FROM table_origin_data;\n"
 
-      document.getElementById("sql_input").innerHTML = demo_sql
+      document.getElementById("sql_input").value = demo_sql
     }
 
 var htmlSTring = '<div style="font-color:red;">\
@@ -62,7 +65,7 @@ var htmlSTring = '<div style="font-color:red;">\
 Input your SQL:
 <!-- <input name="sql_input" value="select 1;" type="text" id="sql_input"> -->
 <br>
-<textarea name="sql_input" rows="17" cols="80" id="sql_input"></textarea>
+<textarea name="sql_input" rows="17" cols="80" style="overflow: scroll" id="sql_input"></textarea>
 <br>
 <input name="Button" type="button" value="Run!" onClick="func_1()">
 <input name="Button" type="button" value="make a demo" onClick="make_demo()">
@@ -75,7 +78,7 @@ Input your SQL:
 4. 网页保存下来可以离线用。<br>
 5. 无缓存，不保存数据。刷新页面后，数据清空。<br>
 6. 编程不易，请我喝咖啡<br>
-<img src="https://www.guofei.site/public/img/donate/donate_wechat.jpg"><br>
+<img src="https://www.guofei.site/public/img/donate/donate_wechat.jpg" width=150 heght=150><br>
 7. 欢迎去<a href="https://www.guofei.site/">我的博客</a>看一眼。
 </body>
 <html>

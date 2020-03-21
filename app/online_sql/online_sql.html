@@ -14,7 +14,9 @@
 <script>
     function func_1() {
         sql = document.getElementById("sql_input").value;
-        res = alasql(sql);
+        try{res = alasql(sql);}
+        catch{document.getElementById("output").innerHTML = "<font color='red'>语法错误！</font>";}
+
         print_output = "<table>"
         // for (i in res){
         //   print_output += ('<font color="red"><b>result '+i+':</b></font>'
